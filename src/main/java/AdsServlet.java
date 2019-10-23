@@ -9,12 +9,15 @@ import java.util.List;
 @WebServlet("/ads")
 public class AdsServlet extends HttpServlet {
 
+
+    Ads adsDao = DaoFactory.getAdsDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Ads ListAdsDoa = DaoFactory.getAdsDao();
-        List<Ad> ads = ListAdsDoa.all();
+//        Ads ListAdsDoa = DaoFactory.getAdsDao();
+//        List<Ad> ads = ListAdsDoa.all();
+//        List<Ad> ads = DaoFactory.getAdsDao().all();
 
-        req.setAttribute("ads",ads);
+        req.setAttribute("ads",adsDao.all());
         req.getRequestDispatcher("/ads/index.jsp").forward(req,resp);
     }
 }

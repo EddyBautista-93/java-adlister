@@ -11,16 +11,20 @@
 <html>
 <head>
     <title>Ads Page</title>
+    <jsp:include page="../partials/head.jsp">
+        <jsp:param name="title" value="Welcome to my site!" />
+    </jsp:include>
 </head>
 <body>
+<jsp:include page="../partials/navbar.jsp" />
 <h1> Here are some ads</h1>
 
 <c:forEach var="ad" items="${ads}">
-    <div class="ad">
-        <h1>Title: ${ad.title}</h1>
-        <h2>User: ${ad.userId}</h2>
-        <p>description: ${ad.description}</p>
-    </div>
+    <ul class="ad">
+        <li>Title: ${ad.title}</li>
+        <li>User: ${ad.userId}</li>
+        <li>description: ${ad.description}</li>
+    </ul>
 </c:forEach>
 </body>
 </html>
