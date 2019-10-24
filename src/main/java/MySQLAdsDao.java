@@ -7,8 +7,7 @@ import java.util.List;
 public class MySQLAdsDao implements Ads {
     Connection connection;
 
-    public MySQLAdsDao() {
-        Config config = new Config();
+    public MySQLAdsDao(Config config) {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
@@ -49,11 +48,12 @@ public class MySQLAdsDao implements Ads {
         try {
             Statement stmt = connection.createStatement();
 
-            String sql = String.format("insert into ads(title,description) values('%s,'%s',')",ad.getTitle(),ad.getDescription());
+            String sql = String.format("insert into ads(title, description) values('%s','%s')",ad.getTitle(),ad.getDescription());
+            stmt.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return 0L;
 
     }
 }
