@@ -23,11 +23,14 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    //displays ads
     public List<Ad> all() {
         List<Ad> ads = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
+            // takes resultset datatype has the query string
             ResultSet rs = statement.executeQuery("SELECT  * FROM ads");
+            // this loop will loop through all the things you past threw
             while (rs.next()){
 //                translate the Resultset into an List<Ad>
                 Ad ad = new Ad(rs.getLong("id"),
@@ -49,7 +52,8 @@ public class MySQLAdsDao implements Ads {
             Statement stmt = connection.createStatement();
 
             String sql = String.format("insert into ads(title, description) values('%s','%s')",ad.getTitle(),ad.getDescription());
-            stmt.execute(sql);
+            stmt.executeLargeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
         } catch (SQLException e) {
             e.printStackTrace();
         }
